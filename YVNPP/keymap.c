@@ -4,13 +4,6 @@
 #include "features/achordion.h"
 #define MOON_LED_LEVEL LED_LEVEL
 
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-  if (!process_achordion(keycode, record)) { return false; }
-  // Your macros ...
-
-  return true;
-}
-
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
 };
@@ -180,7 +173,8 @@ bool rgb_matrix_indicators_user(void) {
   return true;
 }
 
-bool (uint16_t keycode, keyrecord_t *record) {
+bool process_record_user (uint16_t keycode, keyrecord_t *record) {
+  if (!process_achordion(keycode, record)) { return false; }
   switch (keycode) {
 
     case RGB_SLD:
