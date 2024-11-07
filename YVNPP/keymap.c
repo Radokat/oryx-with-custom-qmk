@@ -1,12 +1,23 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 #include "i18n.h"
+#include "features/achordion.h"
 #define MOON_LED_LEVEL LED_LEVEL
+
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+  if (!process_achordion(keycode, record)) { return false; }
+  // Your macros ...
+
+  return true;
+}
 
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
 };
 
+void matrix_scan_user(void) {
+  achordion_task();
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_moonlander(
@@ -169,7 +180,7 @@ bool rgb_matrix_indicators_user(void) {
   return true;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool (uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 
     case RGB_SLD:
